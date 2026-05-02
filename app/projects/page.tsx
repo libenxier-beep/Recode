@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/content/ProjectCard";
 import { Container } from "@/components/site/Container";
+import { PageIntro } from "@/components/site/PageIntro";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { listProjectsByFilter } from "@/lib/content";
 import { buildPageTitle } from "@/lib/site-config";
@@ -33,15 +34,16 @@ export default async function ProjectsPage({
 
   return (
     <Container className="gap-12 pb-20 pt-14 md:pt-20">
-      <section className="space-y-5">
-        <p className="text-label">Projects</p>
-        <h1 className="max-w-4xl font-serif text-5xl tracking-tight text-text-primary md:text-6xl">
-          The workshop — experiments, products, and systems kept in public.
-        </h1>
-        <p className="max-w-3xl text-lg leading-8 text-text-secondary">
-          这里记录我正在做的项目、产品实验、AI workflow 和工程化尝试。
-        </p>
-      </section>
+      <PageIntro
+        breadcrumb="Recode / § 01 · Projects"
+        title={
+          <>
+            The <span className="italic text-accent">workshop</span> — products,
+            experiments, and systems kept in public.
+          </>
+        }
+        description="这里记录我正在做的项目、产品实验、AI workflow 和工程化尝试。每个项目不只展示结果，也保留它为什么值得做、推进到哪里、遇到了什么问题。"
+      />
 
       <section className="flex flex-wrap gap-3">
         {filters.map((filter) => {

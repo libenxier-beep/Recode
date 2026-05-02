@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/site/Container";
+import { PageIntro } from "@/components/site/PageIntro";
 import { buildPageTitle, siteConfig } from "@/lib/site-config";
 
 const tocItems = [
@@ -32,6 +33,17 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Container className="gap-14 pb-24 pt-12 md:pt-16">
+      <PageIntro
+        breadcrumb="Recode / § 03 · About"
+        title={
+          <>
+            The <span className="italic text-accent">dossier</span> — a student
+            rebuilding himself in public.
+          </>
+        }
+        description="关于这个网站背后的长期叙事：我为什么做 Recode、在把什么当作主线、靠什么积累判断力，以及我想留下怎样的公开成长证据。"
+      />
+
       <div className="grid gap-14 lg:grid-cols-[15rem_minmax(0,1fr)]">
         <aside className="space-y-12 lg:pt-6">
           <div>

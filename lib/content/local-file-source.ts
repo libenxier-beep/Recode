@@ -11,10 +11,6 @@ import {
 } from "@/lib/content/types";
 import type { ContentSource } from "@/lib/content/source";
 
-const CONTENT_ROOT = path.join(process.cwd(), "content");
-const PROJECTS_DIR = path.join(CONTENT_ROOT, "projects");
-const ARTICLES_DIR = path.join(CONTENT_ROOT, "articles");
-
 function normalizeSlug(filename: string) {
   return filename.replace(/\.mdx?$/i, "");
 }
@@ -23,11 +19,19 @@ function formatDateLabel(input: string) {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "2-digit",
-  }).format(new Date(input));
+  }).format(new Date(`${input}T00:00:00Z`));
 }
 
 async function getFilesRecursively(dir: string): Promise<string[]> {
-  const entries = await readdir(dir, { withFileTypes: true });
+  let entries;
+
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
+    throw error;
+  }
+
   const nested = await Promise.all(
     entries.map(async (entry) => {
       const resolved = path.join(dir, entry.name);
@@ -40,8 +44,16 @@ async function getFilesRecursively(dir: string): Promise<string[]> {
 }
 
 export class LocalFileContentSource implements ContentSource {
+  private readonly projectsDir: string;
+  private readonly articlesDir: string;
+
+  constructor(contentRoot = path.join(process.cwd(), "content")) {
+    this.projectsDir = path.join(contentRoot, "projects");
+    this.articlesDir = path.join(contentRoot, "articles");
+  }
+
   async getAllProjects(): Promise<ProjectEntry[]> {
-    const files = await getFilesRecursively(PROJECTS_DIR);
+    const files = await getFilesRecursively(this.projectsDir);
     const projects = await Promise.all(files.map((file) => this.readProject(file)));
 
     return projects.sort((left, right) => {
@@ -56,7 +68,7 @@ export class LocalFileContentSource implements ContentSource {
   }
 
   async getAllArticles(): Promise<ArticleEntry[]> {
-    const files = await getFilesRecursively(ARTICLES_DIR);
+    const files = await getFilesRecursively(this.articlesDir);
     const articles = await Promise.all(files.map((file) => this.readArticle(file)));
 
     return articles.sort((left, right) => right.date.localeCompare(left.date));

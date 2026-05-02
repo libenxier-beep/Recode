@@ -13,8 +13,8 @@ test("core routes load without login or github page nav", async ({ page }) => {
   await expect(page.getByRole("heading", { name: /The workshop/i })).toBeVisible();
 
   await page.goto("/articles");
-  await expect(page.getByRole("heading", { name: /Essays and notes/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /The journal/i })).toBeVisible();
 
   await page.goto("/about");
-  await expect(page.getByRole("heading", { name: /公开成长档案/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /The dossier/i })).toBeVisible();
 });

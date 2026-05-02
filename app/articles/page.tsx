@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/site/Container";
+import { PageIntro } from "@/components/site/PageIntro";
 import { groupPublishedArticlesByYear } from "@/lib/content";
 import type { ArticleType } from "@/lib/content/types";
 import { buildPageTitle } from "@/lib/site-config";
@@ -34,12 +35,23 @@ export default async function ArticlesPage({
 
   return (
     <Container className="gap-14 pb-24 pt-12 md:pt-16">
+      <PageIntro
+        breadcrumb="Recode / § 02 · Articles"
+        title={
+          <>
+            The <span className="italic text-accent">journal</span> — essays,
+            notes, and letters kept in public.
+          </>
+        }
+        description="公开写作、博客文章和思考札记都放在这里。按年份浏览，也可以在 Blog 与 Notes 之间切换，看到不同密度的输出。"
+      />
+
       <section className="space-y-8">
         <div className="flex flex-wrap items-end justify-between gap-6 border-b border-border/80 pb-6">
           <div className="flex items-end gap-5">
-            <h1 className="font-serif text-6xl leading-none tracking-tight text-text-primary md:text-7xl">
+            <h2 className="font-serif text-6xl leading-none tracking-tight text-text-primary md:text-7xl">
               2026
-            </h1>
+            </h2>
             <p className="pb-2 text-sm uppercase tracking-[0.26em] text-text-secondary">
               {totalCount} articles
             </p>
