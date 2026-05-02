@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f6;
-  --card: #fffdf8;
-  --muted: #f3efe7;
+  --background: #fcfbf8;
+  --card: #fffefb;
+  --muted: #f6f2eb;
   --text-primary: #1f1f1d;
   --text-secondary: #6f6a60;
   --border: #e6e0d6;
@@ -57,10 +57,10 @@ button {
 
 .site-grid {
   background-image:
-    linear-gradient(to right, rgba(230, 224, 214, 0.24) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(230, 224, 214, 0.24) 1px, transparent 1px);
-  background-position: center;
-  background-size: 42px 42px;
+    radial-gradient(rgba(31, 31, 29, 0.028) 0.6px, transparent 0.6px),
+    radial-gradient(rgba(255, 255, 255, 0.9) 0.6px, transparent 0.6px);
+  background-position: 0 0, 9px 9px;
+  background-size: 18px 18px;
 }
 
 .text-label {
